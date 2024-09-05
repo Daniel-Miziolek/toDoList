@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -8,8 +8,8 @@ namespace toDoList
 {
     public partial class MainWindow : Window
     {
-        private List<Task> tasks = [];
-        private List<DateTime> dates = [];
+        private List<Task> tasks = new();
+        private List<DateTime> dates = new();
         private readonly DatabaseHelper dbHelper = new();
 
         public MainWindow()
@@ -42,7 +42,7 @@ namespace toDoList
             {
                 if (startDatePicker.SelectedDate == null || endDatePicker.SelectedDate == null)
                 {
-                    MessageBox.Show("Obie daty (początkowa i końcowa) muszą być wybrane.", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Both start and end dates must be selected.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
@@ -51,7 +51,7 @@ namespace toDoList
 
                 if (startDate > endDate)
                 {
-                    MessageBox.Show("Data początkowa nie może być późniejsza niż data końcowa!", "Ostrzeżenie", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Start date cannot be later than end date!", "Warning", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
@@ -59,7 +59,7 @@ namespace toDoList
 
                 if (isBlackout)
                 {
-                    var result = MessageBox.Show("Ta data jest już zajęta. Czy chcesz dodać zadanie z tą datą?", "Uwaga", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    var result = MessageBox.Show("This date is already occupied. Do you want to add a task with this date?", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Question);
                     if (result == MessageBoxResult.No)
                     {
                         return;
@@ -70,7 +70,7 @@ namespace toDoList
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Wystąpił błąd: {ex.Message}", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -138,7 +138,7 @@ namespace toDoList
             }
             else
             {
-                MessageBox.Show("Wybierz element do usunięcia", "Brak wyboru", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Select an item to delete.", "No Selection", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 
